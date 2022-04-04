@@ -1,0 +1,37 @@
+//moving average (for example 4 + 1 = 5 day moving average)
+SELECT DATE_, AVG(close) OVER (ORDER BY DATE_ ROWS BETWEEN 4 PRECEDING AND CURRENT ROW) "N day moving average"
+FROM PRICE_HISTORY
+WHERE TICKER = 'CYB'
+ORDER BY 1
+
+//Range
+SELECT DATE_, High - LOW AS "Range"
+FROM PRICE_HISTORY
+WHERE TICKER = 'CYB'
+ORDER BY DATE_
+
+//Percentage changed
+SELECT DATE_, ((CLOSE - lag(CLOSE) OVER (ORDER BY DATE_))/lag(CLOSE) OVER (ORDER BY DATE_))*100 AS "Percentage Changed"
+FROM PRICE_HISTORY
+WHERE TICKER = 'CYB'
+ORDER BY DATE_
+
+//Rate of Change
+SELECT DATE_, ((CLOSE - lag(CLOSE) OVER (ORDER BY DATE_))/1) AS "Rate of Changed"
+FROM PRICE_HISTORY
+WHERE TICKER = 'CYB'
+ORDER BY DATE_
+
+//Compare percentage change to other stocks
+SELECT PRICE_HISTORY.DATE_, 
+      (((PRICE_HISTORY.CLOSE - lag(PRICE_HISTORY.CLOSE) OVER (ORDER BY PRICE_HISTORY.DATE_))/lag(PRICE_HISTORY.CLOSE) OVER (ORDER BY PRICE_HISTORY.DATE_))*100 - "Second"."Percent_Change2") AS "Difference",
+      ((PRICE_HISTORY.CLOSE - lag(PRICE_HISTORY.CLOSE) OVER (ORDER BY PRICE_HISTORY.DATE_))/lag(PRICE_HISTORY.CLOSE) OVER (ORDER BY PRICE_HISTORY.DATE_))*100 AS "Percent_Change1", 
+      "Second"."Percent_Change2"
+FROM PRICE_HISTORY FULL OUTER JOIN
+                  (SELECT DATE_, ((CLOSE - lag(CLOSE) OVER (ORDER BY DATE_))/lag(CLOSE) OVER (ORDER BY DATE_))*100 AS "Percent_Change2"
+                   FROM PRICE_HISTORY
+                   WHERE TICKER = 'GLD'
+                   ORDER BY DATE_) "Second"
+    ON PRICE_HISTORY.DATE_ = "Second".DATE_
+WHERE PRICE_HISTORY.Ticker = 'CYB'
+ORDER BY PRICE_HISTORY.DATE_
