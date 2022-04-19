@@ -1,7 +1,7 @@
 {
-  "name": "smartypants",
+  "name": "Stonks",
   "version": "1.0.0",
-  "description": "smarty pants app",
+  "description": "",
   "main": "server/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,15 +14,20 @@
   "dev": "concurrently \"npm run backend\" \"npm run client\"",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EstherHan1104/CEN3031-Group87.git"
+    "url": "git+https://github.com/ZhenXW77/Stonks"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/EstherHan1104/CEN3031-Group87/issues"
+    "url": "https://github.com/ZhenXW77/Stonks"
   },
-  "homepage": "https://github.com/EstherHan1104/CEN3031-Group87#readme",
+  "homepage": "https://github.com/ZhenXW77/Stonks",
   "devDependencies": {
     "concurrently": "^7.0.0"
+  },
+  "dependencies": {
+    "chart.js": "^3.7.1",
+    "oracledb": "file:../../node-oracledb",
+    "react-chartjs-2": "^4.1.0"
   }
 }
