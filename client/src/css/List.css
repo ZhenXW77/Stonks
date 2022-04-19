@@ -1,0 +1,28 @@
+.list 
+{
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.listButton
+{
+    width: 155px;
+    height: 45px;
+    border: none;
+
+    color: rgb(0, 0, 0);
+    background-color: white;
+    box-shadow: inset 0 0 0 0 rgb(0, 0, 0);
+    transition: ease-out 0.2s;
+    font-size: 1.8rem;
+    outline: none;
+}
+
+.listButton:hover
+{
+    box-shadow: inset 145px 0 0 0 rgb(0, 0, 0);
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+}
