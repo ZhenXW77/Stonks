@@ -23,11 +23,15 @@
   },
   "homepage": "https://github.com/ZhenXW77/Stonks",
   "devDependencies": {
-    "concurrently": "^7.0.0"
+    "concurrently": "^7.0.0",
+    "json-loader": "^0.5.7"
   },
   "dependencies": {
     "chart.js": "^3.7.1",
+    "node-oracledb": "^1.0.2",
     "oracledb": "file:../../node-oracledb",
-    "react-chartjs-2": "^4.1.0"
+    "react-chartjs-2": "^4.1.0",
+    "recharts": "^2.1.9",
+    "victory": "^36.3.2"
   }
 }
