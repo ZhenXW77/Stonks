@@ -27,7 +27,11 @@
   },
   "dependencies": {
     "chart.js": "^3.7.1",
-    "oracledb": "file:../../node-oracledb",
-    "react-chartjs-2": "^4.1.0"
+    "fs": "^0.0.1-security",
+    "json-loader": "^0.5.7",
+    "oracledb": "^5.1.0",
+    "react-chartjs-2": "^4.1.0",
+    "react-scripts": "^5.0.1",
+    "recharts": "^2.1.9"
   }
 }

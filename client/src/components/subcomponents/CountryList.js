@@ -1,60 +1,79 @@
 import React, { Component } from 'react';
-import '../../css/List.css';
+import '../../css/ListAndChart.css';
 import '../../css/QueryButton.css';
-//import '../../../Example.js';
+import doQuery from '../Query';
+import Graph1 from '../GraphChart.js/Graph1';
 
 export default class CountryList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            stock: 'Choose a Stock'
+            stock: 'Choose a Stock',
+            ticker: 'None Selected',
+            extradata: null
         }
+        this.graphData = null;
     }
 
-    changeStock(text){
+    changeStock(text, newTicker){
         this.setState({
-            stock: text
+            stock: text,
+            ticker: newTicker
         })
     }
+
+    getInput(){
+
+        const val = document.querySelector('input').value;
+        this.setState({
+            extradata: val
+        })
+        return this.state.extradata;
+    }
+
 
     render(){
     return (
         <div>
-            <h1 className = "stockName">{this.state.stock}</h1> 
-
+            <h1 className = "stockName">{this.state.stock} ({this.state.ticker})</h1> 
+  
             <div className = "queryGroup">
-                <button className = "queryButton" onClick = ""> Range </button>
-                <button className = "queryButton" onClick = ""> 90 day Moving Average </button>
-                <button className = "queryButton" onClick = ""> Percentage Change </button>
-                <button className = "queryButton" onClick = ""> Rate of Change </button>
-                <button className = "queryButton" onClick = ""> Compare to other </button>
+                <button className = "queryButton" onClick = {() => {this.graphData = doQuery("range", this.state.ticker)}}> Range </button>
+                <button className = "queryButton" onClick = {() =>{this.graphData = doQuery("movingavg", this.state.ticker, this.state.extradata)}}> 90 day Moving Average </button>
+                <button className = "queryButton" onClick = {() =>{this.graphData = doQuery("change", this.state.ticker)}}> Percentage Change </button>
+                <button className = "queryButton" onClick = {() => {this.graphData = doQuery("roc", this.state.ticker)}}> Rate of Change </button>
+                <button className = "queryButton" onClick = {() => {this.graphData = doQuery("percentcomp", this.state.ticker, this.state.extraData)}}> Compare to other </button>
+                <input className = "textBox" placeholder = "Enter Extra Data"></input>
             </div> 
 
-            <div className="list">
-                <button className = "listButton" onClick = {() => this.changeStock("Global X MSCI Argentina ETF")}> ARGT </button>
-                <button className = "listButton" onClick = {() => this.changeStock("ishares Msci Israel ETF")}> EIS </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Australia ETF")}> EWA </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Canada ETF")}> EWC </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Hong Kong ETF")}> EWH </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Japan ETF")}> EWJ </button>
-                <button className = "listButton" onClick = {() => this.changeStock("ishares Msci Switzerland ETF")}> EWL </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI France ETF")}> EWQ </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares Msci Singapore ETF")}> EWS </button>
-                <button className = "listButton" onClick = {() => this.changeStock("ishares Msci Taiwan ETF")}> EWT </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI United Kingdom ETF")}> EWU </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Mexico ETF")}> EWW </button>
-                <button className = "listButton" onClick = {() => this.changeStock("ishares Msci South Korea ETF")}> EWY </button>
-                <button className = "listButton" onClick = {() => this.changeStock("ishares Msci Brazil ETF")}> EWZ </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI South Africa ETF")}> EZA </button>
-                <button className = "listButton" onClick = {() => this.changeStock("SPDR S&P China ETF")}> GXC </button>
-                <button className = "listButton" onClick = {() => this.changeStock("VanEck Indonesia Index ETF")}> IDX </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Saudi Arabia ETF")}> KSA </button>
-                <button className = "listButton" onClick = {() => this.changeStock("Global X MSCI Norway ETF")}> NORW </button>
-                <button className = "listButton" onClick = {() => this.changeStock("VanEck Russia ETF")}> RSX </button>
-                <button className = "listButton" onClick = {() => this.changeStock("SPDR S&P 500 ETF Trust")}> SPY </button>
-                <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI UAE ETF")}> UAE </button>
-                <button className = "listButton" onClick = {() => this.changeStock("VanEck Vietnam ETF")}> VNM </button>
-            </div>     
+            <div className = "chartListContainer">
+                <Graph1 data = {this.graphData}/>
+                <div className="list">
+                    <button className = "listButton" onClick = {() => this.changeStock("Global X MSCI Argentina ETF", "ARGT")}> ARGT </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("ishares Msci Israel ETF", "EIS")}> EIS </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Australia ETF", "EWA")}> EWA </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Canada ETF", "EWC")}> EWC </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Hong Kong ETF", "EWH")}> EWH </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Japan ETF", "EWJ")}> EWJ </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("ishares Msci Switzerland ETF", "EWL")}> EWL </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI France ETF", "EWQ")}> EWQ </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares Msci Singapore ETF", "EWS")}> EWS </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("ishares Msci Taiwan ETF", "EWT")}> EWT </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI United Kingdom ETF", "EWU")}> EWU </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Mexico ETF", "EWW")}> EWW </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("ishares Msci South Korea ETF", "EWY")}> EWY </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("ishares Msci Brazil ETF", "EWZ")}> EWZ </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI South Africa ETF", "EZA")}> EZA </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("SPDR S&P China ETF", "GXC")}> GXC </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("VanEck Indonesia Index ETF", "IDX")}> IDX </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI Saudi Arabia ETF", "KSA")}> KSA </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("Global X MSCI Norway ETF", "NORW")}> NORW </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("VanEck Russia ETF", "RSX")}> RSX </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("SPDR S&P 500 ETF Trust", "SPY")}> SPY </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("iShares MSCI UAE ETF", "UAE")}> UAE </button>
+                    <button className = "listButton" onClick = {() => this.changeStock("VanEck Vietnam ETF", "VNM")}> VNM </button>
+                </div>     
+            </div>
         </div>
     )
   }

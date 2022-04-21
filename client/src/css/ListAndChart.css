@@ -1,0 +1,65 @@
+.list 
+{   
+    position: flex;
+    flex-direction: column;
+    padding-top: -600px;
+    padding-bottom: 100px;
+    width: 10px;
+    transition:0.5s;
+    overflow: hidden;
+    grid-area: overlap;
+}
+
+.list:hover
+{
+    width: 150px;
+}
+
+.listButton
+{
+    width: 130px;
+    height: 45px;
+    border: none;
+    color: rgb(0, 0, 0);
+    background-color: white;
+    box-shadow: inset 0 0 0 0 rgb(0, 0, 0);
+    transition: ease-out 0.2s;
+    font-size: 1.8rem;
+    outline: none;
+}
+
+.listButton:hover
+{
+    box-shadow: inset 145px 0 0 0 rgb(0, 0, 0);
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+}
+
+.stockName
+{
+    padding-top: 80px;
+    padding-bottom: 20px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.chart
+{
+    padding-left: 100px;
+    padding-top: 50px;
+    grid-area: overlap;
+}
+
+.chartListContainer
+{
+    display:grid;
+    grid-template-columns: 2fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "overlap";
+}
+
+.chart2
+{
+    padding-left: 100px;
+    padding-top: 50px;
+}
